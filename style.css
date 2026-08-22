@@ -1,0 +1,50 @@
+.acessorios-bb, .equipamentos-mh {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.acessorios-bb label, .equipamentos-mh label {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.acessorios-bb input, .equipamentos-mh input {
+  width: 100%;
+  max-width: 220px;
+}
+
+.acessorios-bb .input-stack, .equipamentos-mh .input-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.acessorios-bb .erro-validacao, .equipamentos-mh .erro-validacao {
+  line-height: 1.2;
+}
+#planilha-resultado table {
+  /* Centraliza a tabela horizontalmente */
+  margin: 20px auto; 
+  /* Remove o espaço duplo entre as bordas */
+  border-collapse: collapse; 
+  font-family: sans-serif;
+  min-width: 400px;
+}
+
+/* Cria as linhas divisórias nas células de cabeçalho e de dados */
+#planilha-resultado th, #planilha-resultado td {
+  border: 1px solid #ccc; 
+  padding: 12px 15px;
+  text-align: left;
+}
+/* Estilo opcional para destacar o topo da tabela */
+#planilha-resultado th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+#planilha-resultado h3, #planilha-resultado h4 {
+  text-align: center;
+}
