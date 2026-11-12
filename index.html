@@ -10,246 +10,328 @@
 
 <body>
   <div class="page">
-    <h1>Calculadora de Materiais</h1>
-    <p class="lead">Quantificação de infraestrutura de rede local (malha horizontal e backbone óptico).</p>
+    <header class="app-header">
+      <div class="brand-tag">CABEAMENTO ESTRUTURADO • NBR 14565 / TIA-568</div>
+      <h1>Calculadora de Materiais</h1>
+      <p class="lead">Quantificação e dimensionamento automatizado de infraestrutura de rede local (malha horizontal metálica e backbone óptico).</p>
+    </header>
 
-    <form id="form-calculadora">
-      <fieldset>
-        <legend>Dados gerais</legend>
-        <div class="grid">
+    <form id="form-calculadora" autocomplete="off">
+      <fieldset id="fieldset-dados-gerais">
+        <legend>Dados gerais do projeto</legend>
+        <div class="grid-top">
           <label>
             Número de pavimentos da edificação
             <input type="number" id="pavimentos" name="pavimentos" min="1" step="1" value="1" required>
           </label>
-        </div>
-        <h3>Dados que serão exibidos na planilha</h3>
-        <div class="checks">
-          <label class="check">
-            <input type="radio" name="escopo" value="mh">
-            Apenas MH
-          </label>
-          <label class="check">
-            <input type="radio" name="escopo" value="backbone">
-            Apenas backbone
-          </label>
-          <label class="check">
-            <input type="radio" name="escopo" value="ambos" checked>
-            MH e backbone
-          </label>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Backbone</legend>
-        <div class="grid">
-          <label>
-            Especificação do cabo de fibra óptica
-            <select id="tipo-fo" name="tipoFo" required>
-              <option value="MM">MM</option>
-              <option value="SM">SM</option>
-            </select>
-          </label>
-          <label>
-            Característica da fibra óptica
-            <select id="caracteristica-fo" name="caracteristicaFo" required>
-              <option value="OM2">OM2</option>
-              <option value="OM3">OM3</option>
-              <option value="OM4">OM4</option>
-              <option value="OM5">OM5</option>
-              <option value="OS1">OS1</option>
-              <option value="OS2">OS2</option>
-            </select>
-          </label>
-          <label>
-            Comprimento estimado por lance de backbone (m)
-            <input type="number" id="medida-bb" name="medidaBb" min="0" step="0.01" value="30" required>
-          </label>
-          <label>
-            Pares de fibras disponíveis
-            <select id="pares-fo" name="paresFo" min="0" step="1" value="0" required>
-              <option value="12">12</option>
-              <option value="24">24</option>
-              <option value="48">48</option>
-              <option value="4">4</option>
-              <option value="8">8</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
-          </label>
-        </div>
-
-        <h3>Existência de backbone</h3>
-        <div class="checks">
-          <label class="check">
-            <input type="checkbox" id="bb-primario" name="bbPrimario">
-            Backbone primário
-          </label>
-          <label class="check">
-            <input type="checkbox" id="bb-secundario" name="bbSecundario">
-            Backbone secundário
-          </label>
-        </div>
-
-        <h3>Quantidade de backbones por andar</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Pavimento</th>
-                <th>Backbones</th>
-              </tr>
-            </thead>
-            <tbody id="pavimentos-backbone"></tbody>
-          </table>
-        </div>
-
-        <h3>Acessórios de interligação BB ponto a ponto</h3>
-        <div class="acessorios-bb">
-          <label>
-            DIO
-            <input type="number" id="acc-dio" name="accDio" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Bandeja de emenda
-            <input type="number" id="acc-bandeja" name="accBandeja" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Pigtail
-            <input type="number" id="acc-pigtail" name="accPigtail" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Adaptador óptico
-            <input type="number" id="acc-adaptador" name="accAdaptador" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Cordão óptico
-            <input type="number" id="acc-cordao" name="accCordao" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Conector óptico
-            <input type="number" id="acc-conector" name="accConector" min="0" step="1" value="0" required>
-          </label>
+          <div class="escopo-wrap">
+            <span class="label-title">Escopo exibido na planilha</span>
+            <div class="checks">
+              <label class="check">
+                <input type="radio" name="escopo" value="mh">
+                Apenas MH
+              </label>
+              <label class="check">
+                <input type="radio" name="escopo" value="backbone">
+                Apenas backbone
+              </label>
+              <label class="check">
+                <input type="radio" name="escopo" value="ambos" checked>
+                MH e backbone
+              </label>
+            </div>
+          </div>
         </div>
       </fieldset>
 
-      <fieldset>
-        <div class="equipamentos-mh">
-        <legend>Malha Horizontal</legend>
-        <div class="grid">
-          <label>
-            Categoria do cabo de MH
-            <select id="categoria-mh" name="categoriaMh" required>
-              <option value="Cat5e">Cat5e</option>
-              <option value="Cat6">Cat6</option>
-              <option value="Cat6A">Cat6A</option>
-              <option value="Cat7">Cat7</option>
-              <option value="Cat8">Cat8</option>
-            </select>
-          </label>
-          <label>
-            Medida básica para distância da MH (m)
-            <input type="number" id="medida-mh" name="medidaMh" min="0" step="0.01" value="15" required>
-          </label>
-        </div>
+      <div class="form-columns">
+        <fieldset id="fieldset-backbone">
+          <legend>Backbone Óptico</legend>
+          <div class="grid">
+            <label>
+              Especificação da fibra óptica
+              <select id="tipo-fo" name="tipoFo" required>
+                <option value="MM">MM (Multimodo)</option>
+                <option value="SM">SM (Monomodo)</option>
+              </select>
+            </label>
+            <label>
+              Característica da fibra óptica
+              <select id="caracteristica-fo" name="caracteristicaFo" required>
+                <option value="OM4" selected>OM4</option>
+                <option value="OM5">OM5</option>
+                <option value="OM3">OM3</option>
+                <option value="OM2">OM2</option>
+                <option value="OS2">OS2</option>
+                <option value="OS1">OS1</option>
+              </select>
+            </label>
+            <label>
+              Comprimento por lance de BB (m)
+              <input type="number" id="medida-bb" name="medidaBb" min="0" step="0.01" value="30" required>
+            </label>
+            <label>
+              Pares de fibras disponíveis
+              <select id="pares-fo" name="paresFo" required>
+                <option value="12" selected>12 pares (24 fibras)</option>
+                <option value="24">24 pares (48 fibras)</option>
+                <option value="48">48 pares (96 fibras)</option>
+                <option value="4">4 pares (8 fibras)</option>
+                <option value="8">8 pares (16 fibras)</option>
+                <option value="1">1 par (2 fibras)</option>
+                <option value="2">2 pares (4 fibras)</option>
+              </select>
+            </label>
+            <label class="grid-full">
+              Tipo de emenda óptica adotada
+              <select id="tipo-emenda-bb" name="tipoEmendaBb">
+                <option value="fusao" selected>Fusão por Arco Voltaico (0,2 dB/emenda)</option>
+                <option value="mecanica">Emenda Mecânica (0,4 dB/emenda)</option>
+              </select>
+            </label>
+          </div>
 
-        <h3>Pontos de telecom por pavimento</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Pavimento</th>
-                <th>Dados</th>
-                <th>Voz</th>
-                <th>CFTV</th>
-                <th>Wi-Fi</th>
-                <th>Outro</th>
-              </tr>
-            </thead>
-            <tbody id="pavimentos-mh"></tbody>
-          </table>
-        </div>
+          <div class="bb-pri-toggle">
+            <label class="check">
+              <input type="checkbox" id="bb-primario" name="bbPrimario">
+              Possui backbone primário (entre prédios)?
+            </label>
+          </div>
 
-        <h3>Material que atende à SEQ</h3>
-        <div class="grid">
-          <label>
-            Switch(24 portas)
-            <input type="number" id="seq-switch" name="seqSwitch" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Rack(42U) aberto
-            <input type="number" id="seq-rack" name="seqRack" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Patch panel(24 portas)
-            <input type="number" id="seq-patch-panel" name="seqPatchPanel" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Organizador de cabos
-            <input type="number" id="seq-organizador" name="seqOrganizador" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Patch cord
-            <input type="number" id="seq-patch-cords" name="seqPatchCords" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Roteador
-            <input type="number" id="seq-roteadores" name="seqRoteadores" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Nobreak(2U)
-            <input type="number" id="seq-nobreaks-2u" name="seqNobreaks-2u" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Nobreak(3U)
-            <input type="number" id="seq-nobreaks-3u" name="seqNobreaks-3u" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Bandeja(1U)
-            <input type="number" id="seq-bandeja-1u" name="seqBandeja-1u" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Bandeja(2U)
-            <input type="number" id="seq-bandeja-2u" name="seqBandeja-2u" min="0" step="1" value="0" required>
-          </label>
-        </div>
+          <h3>Quantidade de backbones por andar</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Pavimento</th>
+                  <th>Backbones</th>
+                </tr>
+              </thead>
+              <tbody id="pavimentos-backbone"></tbody>
+            </table>
+          </div>
 
-        <h3>Material que atende à SET</h3>
-        <div class="grid">
-          <label>
-            Switch(24 portas)
-            <input type="number" id="set-switch" name="setSwitch" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Rack(12U) aberto
-            <input type="number" id="set-rack" name="setRack" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Patch panel(24 portas)
-            <input type="number" id="set-patch-panel" name="setPatchPanel" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Organizador de cabos
-            <input type="number" id="set-organizador" name="setOrganizador" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Patch cords
-            <input type="number" id="set-patch-cords" name="setPatchCords" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Nobreak(1U)
-            <input type="number" id="set-nobreaks" name="setNobreaks" min="0" step="1" value="0" required>
-          </label>
-          <label>
-            Bandeja(1U)
-            <input type="number" id="set-bandeja" name="setBandeja" min="0" step="1" value="0" required>
-          </label>
-          <label></label>
-        </div>
-        </div>
-      </fieldset>
+          <h3>Acessórios de interligação BB ponto a ponto</h3>
+          <p class="field-hint">Terminação nos DIOs (ER e TR). Pigtails conectorizados SC de fábrica.</p>
+          <div class="acessorios-bb">
+            <label>
+              DIO (24 portas - 1U)
+              <input type="number" id="acc-dio" name="accDio" min="0" step="1" value="0" required>
+            </label>
+            <label>
+              Bandeja de emenda (1U - 24 fusões)
+              <input type="number" id="acc-bandeja" name="accBandeja" min="0" step="1" value="0" required>
+            </label>
+            <label>
+              Pigtail conectorizado (SC)
+              <input type="number" id="acc-pigtail" name="accPigtail" min="0" step="1" value="0" required>
+            </label>
+            <label>
+              Adaptador óptico (duplo)
+              <input type="number" id="acc-adaptador" name="accAdaptador" min="0" step="1" value="0" required>
+            </label>
+            <label>
+              Cordão óptico duplex
+              <input type="number" id="acc-cordao" name="accCordao" min="0" step="1" value="0" required>
+            </label>
+          </div>
+
+          <div id="bloco-bb-primario" hidden>
+            <h3>Backbone primário (interligação entre prédios)</h3>
+            <p class="field-hint">Enlace de campus ponto a ponto completo (ambos os prédios).</p>
+            <div class="grid">
+              <label>
+                Especificação da fibra
+                <select id="tipo-fo-pri" name="tipoFoPri">
+                  <option value="SM" selected>SM (Monomodo)</option>
+                  <option value="MM">MM (Multimodo)</option>
+                </select>
+              </label>
+              <label>
+                Característica da fibra
+                <select id="caracteristica-fo-pri" name="caracteristicaFoPri"></select>
+              </label>
+              <label>
+                Quantidade de lances primários
+                <input type="number" id="qtd-bb-pri" name="qtdBbPri" min="0" step="1" value="1" required>
+              </label>
+              <label>
+                Comprimento de cada lance (m)
+                <input type="number" id="medida-bb-pri" name="medidaBbPri" min="0" step="0.01" value="100" required>
+              </label>
+              <label>
+                Pares de fibras disponíveis
+                <select id="pares-fo-pri" name="paresFoPri">
+                  <option value="12" selected>12 pares (24 fibras)</option>
+                  <option value="24">24 pares (48 fibras)</option>
+                  <option value="48">48 pares (96 fibras)</option>
+                  <option value="4">4 pares (8 fibras)</option>
+                  <option value="8">8 pares (16 fibras)</option>
+                  <option value="1">1 par (2 fibras)</option>
+                  <option value="2">2 pares (4 fibras)</option>
+                </select>
+              </label>
+              <label>
+                Tipo de emenda óptica
+                <select id="tipo-emenda-pri" name="tipoEmendaPri">
+                  <option value="fusao" selected>Fusão por Arco (0,2 dB)</option>
+                  <option value="mecanica">Emenda Mecânica (0,4 dB)</option>
+                </select>
+              </label>
+            </div>
+
+            <h3>Acessórios do backbone primário</h3>
+            <div class="acessorios-bb">
+              <label>
+                DIO (24 portas - 1U)
+                <input type="number" id="acc-pri-dio" name="accPriDio" min="0" step="1" value="0" required>
+              </label>
+              <label>
+                Bandeja de emenda (1U)
+                <input type="number" id="acc-pri-bandeja" name="accPriBandeja" min="0" step="1" value="0" required>
+              </label>
+              <label>
+                Pigtail conectorizado (SC)
+                <input type="number" id="acc-pri-pigtail" name="accPriPigtail" min="0" step="1" value="0" required>
+              </label>
+              <label>
+                Adaptador óptico (duplo)
+                <input type="number" id="acc-pri-adaptador" name="accPriAdaptador" min="0" step="1" value="0" required>
+              </label>
+              <label>
+                Cordão óptico duplex
+                <input type="number" id="acc-pri-cordao" name="accPriCordao" min="0" step="1" value="0" required>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset id="fieldset-mh">
+          <legend>Malha Horizontal</legend>
+          <div class="equipamentos-mh">
+            <div class="grid">
+              <label>
+                Categoria do cabo de MH
+                <select id="categoria-mh" name="categoriaMh" required>
+                  <option value="Cat6" selected>Cat6</option>
+                  <option value="Cat5e">Cat5e</option>
+                  <option value="Cat6A">Cat6A</option>
+                  <option value="Cat7">Cat7</option>
+                  <option value="Cat8">Cat8</option>
+                </select>
+              </label>
+              <label>
+                Distância básica da MH (m)
+                <input type="number" id="medida-mh" name="medidaMh" min="0" step="0.01" value="15" required>
+              </label>
+            </div>
+
+            <h3>Pontos de telecom por pavimento</h3>
+            <p class="field-hint">Cada ponto de telecom possui 2 pontos de rede (2 cabos UTP) e recebe 3 etiquetas (1 espelho + 2 cabos).</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Pavimento</th>
+                    <th>Dados</th>
+                    <th>Voz</th>
+                    <th>CFTV</th>
+                    <th>Wi-Fi</th>
+                    <th>Outro</th>
+                  </tr>
+                </thead>
+                <tbody id="pavimentos-mh"></tbody>
+              </table>
+            </div>
+
+            <div class="materiais-racks-grid">
+              <div class="rack-col">
+                <h3>Material que atende à SEQ</h3>
+                <div class="grid-compact">
+                  <label>
+                    Switch (24 portas)
+                    <input type="number" id="seq-switch" name="seqSwitch" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Rack 42U aberto
+                    <input type="number" id="seq-rack" name="seqRack" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Patch panel (24 portas)
+                    <input type="number" id="seq-patch-panel" name="seqPatchPanel" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Organizador de cabos (1U)
+                    <input type="number" id="seq-organizador" name="seqOrganizador" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Patch cord (1.5m)
+                    <input type="number" id="seq-patch-cords" name="seqPatchCords" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Roteador (1U)
+                    <input type="number" id="seq-roteadores" name="seqroteadores" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Nobreak (2U)
+                    <input type="number" id="seq-nobreaks-2u" name="seqNobreaks-2u" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Nobreak (3U)
+                    <input type="number" id="seq-nobreaks-3u" name="seqNobreaks-3u" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Bandeja (1U)
+                    <input type="number" id="seq-bandeja-1u" name="seqBandeja-1u" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Bandeja (2U)
+                    <input type="number" id="seq-bandeja-2u" name="seqBandeja-2u" min="0" step="1" value="0" required>
+                  </label>
+                </div>
+              </div>
+
+              <div class="rack-col">
+                <h3>Material que atende à SET</h3>
+                <div class="grid-compact">
+                  <label>
+                    Switch (24 portas)
+                    <input type="number" id="set-switch" name="setSwitch" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Rack 12U aberto
+                    <input type="number" id="set-rack" name="setRack" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Patch panel (24 portas)
+                    <input type="number" id="set-patch-panel" name="setPatchPanel" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Organizador de cabos (1U)
+                    <input type="number" id="set-organizador" name="setOrganizador" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Patch cords (1.5m)
+                    <input type="number" id="set-patch-cords" name="setPatchCords" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Nobreak (1U)
+                    <input type="number" id="set-nobreaks" name="setNobreaks" min="0" step="1" value="0" required>
+                  </label>
+                  <label>
+                    Bandeja (1U)
+                    <input type="number" id="set-bandeja" name="setBandeja" min="0" step="1" value="0" required>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
 
       <div class="actions">
-        <button type="submit">Gerar planilha</button>
+        <button type="submit" id="btn-calcular">Gerar planilha</button>
+        <button type="button" id="btn-preencher-recomendados" class="secondary">Preencher valores recomendados</button>
         <button type="button" id="btn-exportar" class="secondary" disabled>Baixar tabela CSV</button>
       </div>
     </form>
